@@ -39,6 +39,16 @@ psis = [make_psi(n, l, m) for (n, l, m) in orbitals]
 def hybrid_psi(x, y, z, coeffs):
     return sum(c * psi(x, y, z) for c, psi in zip(coeffs, psis))
 
+# coeffs example
+''' 
+[np.sqrt(1/6), 0, 0, np.sqrt(2/3), np.sqrt(2/3), 0] # sp3d2
+[np.sqrt(1/2), np.sqrt(1/2), 0, 0, 0, 0] # sp
+[np.sqrt(1/3), np.sqrt(1/6), np.sqrt(1/2), 0, 0, 0] # sp2
+[np.sqrt(1/4), np.sqrt(1/4), np.sqrt(1/4), np.sqrt(1/4), 0, 0] # sp3
+[np.sqrt(1/5), 0, 0, np.sqrt(3/10), np.sqrt(2/5), 0] # sp3d
+[np.sqrt(1/6), np.sqrt(2/3), 0, 0, 0, np.sqrt(1/6)] # sp3d2
+'''
+
 def PDFlize(psi):
     """Convert wavefunction to probability density function (PDF)."""
     return np.abs(psi)**2

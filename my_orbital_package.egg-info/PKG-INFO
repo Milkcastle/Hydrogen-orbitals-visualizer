@@ -1,0 +1,35 @@
+Metadata-Version: 2.4
+Name: my_orbital_package
+Version: 0.1
+Summary: Hydrogen atom orbital visualizer and hybrid orbital constructor
+Author: Your Name
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: sympy
+Requires-Dist: matplotlib
+Requires-Dist: scipy
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: summary
+
+# Hydrogen Orbital Visualizer
+
+A Python toolkit for simulating and visualizing hydrogenic atomic orbitals and hybridized wavefunctions in 2D and 3D.
+
+## Features
+- Computes hydrogen atom orbitals from quantum numbers.
+- Converts wavefunctions to real representations and probability densities.
+- Supports linear combinations for hybrid orbitals (e.g., sp3, d-orbital mixing).
+- Visualizes orbitals as 2D slices or 3D volumetric scatter plots.
+
+## Installation
+```bash
+pip install numpy matplotlib scipy sympy math

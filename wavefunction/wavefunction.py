@@ -18,12 +18,14 @@ def PSI_nlm(x, y, z, n, l, m):
 def make_psi(n, l, m):
     def psi_real(x, y, z):
         """Real-valued hydrogenic orbital function."""
-        psi = PSI_nlm(x, y, z, n, l, m)
-        if m > 0:
-            return np.sqrt(2) * (-1)**m * psi.real
-        elif m < 0:
-            return np.sqrt(2) * (-1)**m * psi.imag
-        return psi.real
+        if m < 0:
+            psi_real = (1j/np.sqrt(2))*(PSI_nlm(x, y, z, n, l, -np.abs(m))-((-1)**m)*(PSI_nlm(x, y, z, n, l, np.abs(m))))
+        elif m == 0:
+            psi_real = PSI_nlm(x, y, z, n, l, 0)
+        elif m > 0:
+            psi_real = (1/np.sqrt(2))*(PSI_nlm(x, y, z, n, l, -np.abs(m))+((-1)**m)*(PSI_nlm(x, y, z, n, l, np.abs(m))))
+        return psi_real
+    
     psi_real.n = n
     psi_real.l = l
     psi_real.m = m

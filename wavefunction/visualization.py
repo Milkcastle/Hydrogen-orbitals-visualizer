@@ -4,7 +4,7 @@ from matplotlib.widgets import Slider
 from .colormap import alpha_magma_r
 from .wavefunction import PDFlize
 
-def graphing_2D(psi, type=None, cmap='seismic', resol=0.07, list=None, size=12, title=None):
+def graphing_2D(psi, type=None, cmap='seismic', resol=0.05, list=None, size=12, title=None):
     """Plot a 2D orbital slice & slide (xz-plane)."""
     
     zmin=-size
@@ -43,9 +43,9 @@ def graphing_2D(psi, type=None, cmap='seismic', resol=0.07, list=None, size=12, 
     sli = Slider(plt.axes([0.25, 0.025, 0.65, 0.03]), "Y", z[0], z[len(z)-1], valinit=0)
 
     if title is None and list is not None:
-        Title = f"Hydrogen Orbital xz Slice"
+        Title = f"Hybrid Orbital xz Slice (y={sli.val:.2f})"
     elif title is None:
-        Title = f"Hydrogen Orbital xz Slice (y={str("%.2f"%sli.val)}): n={str(psi.n)}, l={str(psi.l)}, m={str(psi.m)}"
+        Title = f"Hydrogen Orbital xz Slice (y={sli.val:.2f}): n={psi.n}, l={psi.l}, m={psi.m}"
     else:
         Title=title
         
@@ -54,10 +54,14 @@ def graphing_2D(psi, type=None, cmap='seismic', resol=0.07, list=None, size=12, 
     def update(val):
         index = int((sli.val-zmin) / dz)
         im.set_data(data[index,:,:].T)
-        ax.set_title(f"Hydrogen Orbital xz Slice (y={str("%.2f"%sli.val)}): n={str(psi.n)}, l={str(psi.l)}, m={str(psi.m)}")
+        if title is None and list is not None:
+            ax.set_title(f"Hybrid Orbital xz Slice (y={sli.val:.2f})")
+        elif title is None:
+            ax.set_title(f"Hydrogen Orbital xz Slice (y={sli.val:.2f}): n={psi.n}, l={psi.l}, m={psi.m}")
+        else:
+            ax.set_title(Title)
 
-    if title is None:    
-        sli.on_changed(update)
+    sli.on_changed(update)
         
     plt.show()
 
@@ -84,7 +88,7 @@ def graphing_3D(psi, num=500000, phi_limit=None, list=None, size=12, s=1, title=
     else:
         values = psi(x,y,z)
 
-    values = values**2
+    values = np.abs(values)**2
 
     if phi_limit:
         phi = np.arctan2(y, x)
